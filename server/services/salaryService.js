@@ -9,9 +9,10 @@ const calPercentage = (oldValue, newValue) => {
 	if (oldValue == 0) {
 		val = newValue * 100;
 	} else {
-		val = ((newValue - oldValue) / oldValue) * 100;
+		let numVal = ((newValue - oldValue) / oldValue) * 100
+		numVal = numVal.toFixed(0);
+		val = String(numVal) + "%"
 	}
-	val = val.toFixed(2);
 	if (oldValue < newValue) {
 		return { val: val, type: '+' };
 	} else if (oldValue > newValue) {

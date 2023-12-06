@@ -5,7 +5,7 @@ const calPercentage = (oldValue, newValue) => {
 	} else {
 		val = ((newValue - oldValue) / oldValue) * 100;
 	}
-	val = val.toFixed(2);
+	val = val.toFixed(0);
 	if (oldValue < newValue) {
 		return { val: val, type: '+' };
 	} else if (oldValue > newValue) {

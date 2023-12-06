@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { useStateContext } from '../contexts/ContextProvider';
-import DashboardCards from '../components/DashboardCards';
-import EarningsBanner from '../components/EarningsBanner';
-import EarningsStatistics from '../components/EarningsStatistics';
+import DashboardCards from '../components/Dashboard/DashboardCards';
+import EarningsBanner from '../components/Dashboard/EarningsBanner';
+import EarningsStatistics from '../components/Dashboard/EarningStatistics/EarningsStatistics';
 
 const Dashboard = () => {
 	const { getAllShiftData } =

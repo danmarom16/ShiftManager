@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useStateContext } from '../contexts/ContextProvider';
+import { useStateContext } from '../../contexts/ContextProvider';
 
 const DashboardCards = () => {
 	const {
@@ -16,7 +16,6 @@ const DashboardCards = () => {
 	return (
 		<div>
 			<div className='flex m-3 flex-wrap justify-center gap-1 items-center'>
-				{console.log(dashboardCardsData)}
 				{dashboardCardsData.map((item) => (
 					<div
 						key={item.title}
@@ -30,9 +29,8 @@ const DashboardCards = () => {
 						<p className='mt-3'>
 							<span className='text-lg font-semibold'>{item.amount}</span>
 							<span
-								className={`p-1.5 rounded-full text-white ml-3 bg-${item.percentageColor} ml-2 text-xs`}>
+								className={`px-1 py-0.5 rounded-full ml-3 bg-${item.percentageColor} text-xs text-white`}>
 								{item.percentage.val}
-								{console.log(item.percentage.val)}
 							</span>
 						</p>
 						<p className='text-sm text-gray-400 mt-1'>{item.title}</p>

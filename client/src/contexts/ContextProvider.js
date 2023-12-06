@@ -26,7 +26,7 @@ export const ContextProvider = ({ children }) => {
 	const [themeSettings, setThemeSettings] = useState(false);
 	const [formData, setFormData] = useState({});
 	const [dashboardData, setDashboardData] = useState(0);
-	const [accumulatedRevenue, setAccumulatedRevenue] = useState();
+	const [accumulatedRevenue, setAccumulatedRevenue] = useState(0);
 	const [currentMonthRevenue, setCurrentMonthRevenue] = useState({
 		revenue: 0,
 		percentage: 0,
@@ -34,9 +34,9 @@ export const ContextProvider = ({ children }) => {
 	const [dashboardCardsData, setDashboardCardsData] = useState([
 		{
 			icon: <FaComputer />,
-			amount: '...',
+			amount: 0,
 			percentage: 0,
-			title: 'Shifts',
+			title: 'Number Of Shifts',
 			iconColor: '#03C9D7',
 			iconBg: '#E5FAFB',
 			pcColor: 'red-600',
@@ -44,7 +44,7 @@ export const ContextProvider = ({ children }) => {
 		},
 		{
 			icon: <FaRegCalendarAlt />,
-			amount: '...',
+			amount: 0,
 			percentage: 0,
 			title: 'Regular Hours',
 			iconColor: 'rgb(228, 106, 118)',
@@ -54,7 +54,7 @@ export const ContextProvider = ({ children }) => {
 		},
 		{
 			icon: <MdOutlineNightlight />,
-			amount: '...',
+			amount: 0,
 			percentage: 0,
 			title: 'Night Hours',
 			iconColor: 'rgb(255, 244, 229)',
@@ -64,14 +64,20 @@ export const ContextProvider = ({ children }) => {
 		},
 		{
 			icon: <GiPeaceDove />,
-			amount: '...',
+			amount: 0,
 			percentage: 0,
-			title: 'Shabbat & Holyday Hours',
+			title: 'Shabbat Hours',
 			iconColor: 'rgb(0, 194, 146)',
 			iconBg: 'rgb(235, 250, 242)',
 			pcColor: 'red-600',
 			percentageColor: 'gray-500',
 		},
+	]);
+
+	const [dashboardPieData, setDashboardPieData] = useState([
+		{name:'Regular Hours', value:40, text:''},
+		{name:'Night Hours', value:30, text:''},
+		{name:'Shabbat & Holiday Hours', value:30, text:''}
 	]);
 
 	// FOR MODAL CONTROL
@@ -110,6 +116,24 @@ export const ContextProvider = ({ children }) => {
 	/* 
     	API RELATED FUNCTIONS 
   	*/
+
+	const getDashboardPieChartData = () => {
+		const data = []
+		if (dashboardCardsData != undefined && dashboardCardsData.length != 0 && currentMonthRevenue != undefined) {
+			dashboardCardsData.forEach(element => {
+				if(element.title != 'Number Of Shifts'){
+					const obj = {};
+					obj.name = element.title
+					const pieData = localDataManipulatorService.getPieTotalHours(element,currentMonthRevenue.revenue)
+					obj.value = pieData.amount
+					obj.text = pieData.percentage + '%'
+					data.push(obj)
+				}
+			});
+		}
+		console.log(data)
+		setDashboardPieData(data);
+	}
 
 	const getAccumulatedRevenue = async () => {
 		if (dashboardData != 0 && dashboardData.length != 0) {
@@ -291,6 +315,9 @@ export const ContextProvider = ({ children }) => {
 				getDashboardCardsData: getDashboardCardsData,
 				getCurrentMonthRevenue: getCurrentMonthRevenue,
 				currentMonthRevenue: currentMonthRevenue,
+				dashboardPieData:dashboardPieData,
+				setDashboardPieData: setDashboardPieData,
+				getDashboardPieChartData:getDashboardPieChartData,
 			}}>
 			{children}
 		</StateContext.Provider>

@@ -17,7 +17,6 @@ export const getDashboardData = async (req, res) => {
 	try {
 		const shiftsData = await Shift.find(); // Gets data from mongo
 		const data = await dataService.getMonthlySalary(shiftsData);
-		
 		res.status(200).json(data);
 	} catch (error) {
 		console.log(error);
@@ -29,7 +28,6 @@ export const getDashboardData = async (req, res) => {
 export const postUploadCSV = async (req, res) => {
 	try {
 		const data = await dataService.formateCsvData(req.body);
-		// TODO - INSERTION NOT WORKING
 		const response = await Shift.insertMany(data).catch((error) =>
 			console.log(error)
 		);

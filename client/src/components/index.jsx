@@ -6,8 +6,7 @@ export { default as Footer } from "./Footer";
 export { default as Notifications } from "./Notifications";
 export { default as UserProfile } from "./UserProfile";
 export { default as LineChart } from "./Charts/Line";
-export { default as Pie } from "./Charts/Pie";
+export { default as Pie } from './Dashboard/Pie'
 export { default as ChartsHeader } from "./ChartsHeader";
-export { default as SparkLine } from "./Charts/SparkLine";
 export { default as Stacked } from "./Charts/Stacked";
 export { default as Header } from "./Header";

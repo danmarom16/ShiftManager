@@ -101,6 +101,7 @@ export const shiftsGrid = [
 		field: 'checkbox',
 		width: '50',
 		type: 'checkbox',
+		allowFiltering: false,
 	},
 	{
 		field: 'date',
@@ -108,6 +109,7 @@ export const shiftsGrid = [
 		width: '150',
 		editType: 'dropdownedit',
 		textAlign: 'Center',
+		allowFiltering: true,
 	},
 	{
 		field: 'day',
@@ -115,6 +117,8 @@ export const shiftsGrid = [
 		width: '150',
 		editType: 'dropdownedit',
 		textAlign: 'Center',
+		allowFiltering: false,
+
 	},
 	{
 		field: 'type',
@@ -129,6 +133,8 @@ export const shiftsGrid = [
 		width: '150',
 		editType: 'dropdownedit',
 		textAlign: 'Center',
+		allowFiltering: false,
+
 	},
 	{
 		field: 'exitTime',
@@ -136,6 +142,8 @@ export const shiftsGrid = [
 		width: '150',
 		editType: 'dropdownedit',
 		textAlign: 'Center',
+		allowFiltering: false,
+
 	},
 	{
 		field: 'length',
@@ -143,6 +151,8 @@ export const shiftsGrid = [
 		width: '150',
 		editType: 'dropdownedit',
 		textAlign: 'Center',
+		allowFiltering: false,
+
 	},
 	{
 		field: 'totalAmount',
@@ -152,6 +162,8 @@ export const shiftsGrid = [
 		editType: 'numericedit',
 		currencyCode: 'ILS',
 		width: '150',
+		allowFiltering: false,
+
 	},
 ];
 

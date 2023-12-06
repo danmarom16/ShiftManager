@@ -2,6 +2,7 @@ import { shiftService } from './shiftsService.js';
 import { salaryService } from './salaryService.js';
 import { outsourceApiService } from './outsourceApiService.js';
 
+// DO ONLY AT THE END OF THE MONTH, ELSE PRESENT LAST MONTH
 const getCardsData = async (shiftsData) => {
 	const data = {
 		numOfShifts: { length: '', percentage: '' },
@@ -10,26 +11,29 @@ const getCardsData = async (shiftsData) => {
 		nightHours: { length: '', percentage: '' },
 	};
 
-	const currentMonth = new Date().getMonth() + 1;
-	const prevMonth = new Date().getMonth();
+	const currentMonth = new Date().getMonth() ; // PREV MONTH
+	const prevMonth = new Date().getMonth() - 1; // PREV PREV MONTH
 
 	const monthlyShifts = shiftsData.filter(
-		(shift) => shift.date.getMonth() + 1 === currentMonth
+		(shift) => 
+			shift.date.getMonth() + 1  === currentMonth
 	);
+
 	const prevMonthShifts = shiftsData.filter(
 		(shift) => shift.date.getMonth() + 1 === prevMonth
 	);
 
+	
 	if (monthlyShifts.length == 0) {
 		return {
-			numOfShifts: { length: '0', percentage: '%0' },
-			regularHours: { length: '0', percentage: '%0' },
-			shabbatHours: { length: '0', percentage: '%0' },
-			nightHours: { length: '0', percentage: '%0' },
+			numOfShifts: { length: 0, percentage: { val: 0, type: '=' } },
+			regularHours: { length: 0, percentage: { val: 0, type: '=' } },
+			shabbatHours: { length: 0, percentage: { val: 0, type: '=' } },
+			nightHours: { length: 0, percentage: { val: 0, type: '=' } },
 		};
 	}
 
-	data.numOfShifts.length = monthlyShifts.length;
+	data.numOfShifts.length = String(monthlyShifts.length);
 	data.numOfShifts.percentage = salaryService.calPercentage(
 		parseInt(prevMonthShifts.length),
 		parseInt(monthlyShifts.length)
@@ -177,6 +181,7 @@ const getMonthlySalary = async (shiftsData) => {
 
 // ADD TOTAL AMOUNT CALCULATION
 const formateCsvData = async (dataObject) => {
+	console.log(dataObject)
 	const shifts = [];
 	const rawShifts = dataObject.data.shifts;
 

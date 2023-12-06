@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
 	GridComponent,
 	ColumnsDirective,
@@ -22,12 +22,15 @@ import EditDialog from './costumDialogs/EditDialog';
 import DeleteDialog from './costumDialogs/DeleteDialog';
 import UploadCsvDialog from './costumDialogs/UploadCsvDialog';
 import TypeDialog from './costumDialogs/TypeDialog';
+import {DataUtil} from '@syncfusion/ej2-data'
+import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 
 const ACTION_TYPE = {
 	ADD: 'add',
 	EDIT: 'beginEdit',
 	DELETE: 'delete',
 };
+
 
 const ShiftsTable = () => {
 	const {
@@ -50,7 +53,10 @@ const ShiftsTable = () => {
 		setIsTypeDialogOpen,
 	} = useStateContext();
 
-	const selectionsettings = {
+
+	const gridRef = useRef(null);
+	
+		const selectionsettings = {
 		type: 'Multiple',
 		mode: 'Both',
 	};
@@ -74,12 +80,32 @@ const ShiftsTable = () => {
 		mode: 'Dialog',
 	};
 
+	const filtering = {
+		type: 'Menu'
+	}
+
+	const paging = {
+		pageSize: 20
+	}
+	
 	const toolbarClickHandler = (args) => {
 		if (args.item.properties.id === 'csv_upload') {
 			setIsCsvUploadDialogOpen(true);
 		}
 	};
+
+
+	const onTypeFilterChange = (args) => {
+		gridRef && gridRef.filteredByColumn('type', 'equal', args.value)
+	}
+
+	const filteredTypeTemplate = (props) => {
+		const types = DataUtil.distinct(shiftsData, 'type');
+		return <DropDownListComponent dataSource={types} change={onTypeFilterChange}/>
+
+	}
 	const onActionBegin = (args) => {
+		console.log(args)
 		if (args.requestType === ACTION_TYPE.EDIT) {
 			args.cancel = true;
 			setDialogData(args.rowData);
@@ -104,39 +130,45 @@ const ShiftsTable = () => {
 				category='Page'
 				title='Shifts Table'
 			/>
+			<div className='overflow-y-auto' style={{height:"70vh"}}>
 			<GridComponent
-				id='gridcomp'
-				dataSource={shiftsData}
-				allowPaging
-				allowSorting
-				allowSelection
-				selectionSettings={selectionsettings}
-				editSettings={editing}
-				toolbar={toolbarOptions}
-				toolbarClick={toolbarClickHandler}
-				actionBegin={onActionBegin}>
-				<ColumnsDirective>
-					{shiftsGrid.map((item, index) => (
-						<ColumnDirective
-							key={index}
-							{...item}
-						/>
-					))}
-				</ColumnsDirective>
-				<Inject
-					services={[
-						Resize,
-						Sort,
-						ContextMenu,
-						Filter,
-						Page,
-						ExcelExport,
-						Edit,
-						PdfExport,
-						Toolbar,
-					]}
-				/>
-			</GridComponent>
+			id='gridcomp'
+			ref={grid => gridRef.current = grid}
+			dataSource={shiftsData}
+			allowPaging
+			allowSorting
+			allowSelection
+			allowFiltering
+			selectionSettings={selectionsettings}
+			pageSettings={paging}
+			filterSettings={filtering}
+			editSettings={editing}
+			toolbar={toolbarOptions}
+			toolbarClick={toolbarClickHandler}
+			actionBegin={onActionBegin}>
+			<ColumnsDirective>
+				{shiftsGrid.map((item, index) => (
+					<ColumnDirective
+						key={index}
+						{...item}
+					/>
+				))}
+			</ColumnsDirective>
+			<Inject
+				services={[
+					Resize,
+					Sort,
+					ContextMenu,
+					Filter,
+					Page,
+					ExcelExport,
+					Edit,
+					PdfExport,
+					Toolbar,
+				]}
+			/>
+		</GridComponent>
+			</div>
 			{isEditDialogOpen && <EditDialog />}
 			{isTypeDialogOpen && <TypeDialog />}
 			{isAddDialogOpen && <AddDialog />}

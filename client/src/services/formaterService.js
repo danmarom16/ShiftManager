@@ -1,7 +1,8 @@
 const formatToGrid = (data) => {
 	for (const obj of data) {
 		const formatedDate = obj.date.split('T')[0];
-		obj.date = formatedDate;
+		let dateParts = formatedDate.split("-").reverse();
+		obj.date = dateParts.join("-");
 	}
 	return data;
 };

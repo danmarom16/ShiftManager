@@ -7,6 +7,30 @@ import { LocalCalService } from './api_services/LocalCalService';
 const HOURLY_WAGE = 50;
 const getMaxMonthlyRevenue = () => HOURLY_WAGE * 1.5 * 8 * 20;
 
+const getPieTotalHours = (element, currentMonthRevenue) => {
+	const toRet = {}
+	if(element.amount === 0){
+		toRet.amount = 0;
+		toRet.percentage = 0
+		return toRet;
+	}
+	let totalHoursRevenue = 0;
+	const amount = parseFloat(element.amount);
+	if(element.title === 'Regular Hours'){
+		totalHoursRevenue = amount * HOURLY_WAGE
+	}
+	else if (element.title === 'Night Hours'){
+		totalHoursRevenue = amount * 1.25 * HOURLY_WAGE
+	}
+	else{
+		totalHoursRevenue = amount * 1.5 * HOURLY_WAGE
+	}
+
+	toRet.amount = totalHoursRevenue.toFixed(2);
+	toRet.percentage = ((totalHoursRevenue / currentMonthRevenue) * 100).toFixed(2)
+	return toRet;
+}
+
 const getAccumulatedRevenue = async (dashboardData) => {
 	let sum = 0;
 	if (dashboardData === undefined || dashboardData.length === 0) {
@@ -34,9 +58,8 @@ const getCurrentMonthRevenue = async (dashboardData, currentMonth) => {
 		'Nov',
 		'Dec',
 	];
-	const currentMonthStr = monthNames[currentMonth - 1];
-	const lastMonthStr = monthNames[currentMonth - 2];
-	console.log(lastMonthStr);
+	const currentMonthStr = monthNames[currentMonth - 2];
+	const lastMonthStr = monthNames[currentMonth - 3];
 	const monthData = dashboardData.filter(
 		(dataObj) => currentMonthStr === dataObj.x
 	)[0];
@@ -63,14 +86,15 @@ const formatDashboardCards = (data) => {
 	};
 
 	return [
+		
 		{
 			icon: <FaComputer />,
 			amount: data.numOfShifts.length,
-			percentage: data.numOfShifts.percentage.val,
-			title: 'Shifts',
+			percentage: data.numOfShifts.percentage,
+			title: 'Number Of Shifts',
 			iconColor: '#03C9D7',
 			iconBg: '#E5FAFB',
-			pcColor: 'green-500',
+			pcColor: 'green-600',
 			percentageColor: percentageDinamicColor[data.numOfShifts.percentage.type],
 		},
 		{
@@ -98,7 +122,7 @@ const formatDashboardCards = (data) => {
 			icon: <GiPeaceDove />,
 			amount: data.shabbatHours.length,
 			percentage: data.shabbatHours.percentage,
-			title: 'Shabbat & Holyday Hours',
+			title: 'Shabbat Hours',
 			iconColor: 'rgb(0, 194, 146)',
 			iconBg: 'rgb(235, 250, 242)',
 			pcColor: 'red-600',
@@ -111,4 +135,5 @@ export const localDataManipulatorService = {
 	getMaxMonthlyRevenue,
 	formatDashboardCards,
 	getCurrentMonthRevenue,
+	getPieTotalHours,
 };
