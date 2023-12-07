@@ -43,7 +43,7 @@ const getAccumulatedRevenue = async (dashboardData) => {
 	}
 };
 
-const getCurrentMonthRevenue = async (dashboardData, currentMonth) => {
+const getMonthRevenue = async (dashboardData, currentMonth) => {
 	const monthNames = [
 		'Jan',
 		'Feb',
@@ -134,6 +134,6 @@ export const localDataManipulatorService = {
 	getAccumulatedRevenue,
 	getMaxMonthlyRevenue,
 	formatDashboardCards,
-	getCurrentMonthRevenue,
+	getMonthRevenue,
 	getPieTotalHours,
 };

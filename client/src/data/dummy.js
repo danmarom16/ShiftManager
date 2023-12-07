@@ -96,76 +96,7 @@ export const themeColors = [
 	},
 ];
 
-export const shiftsGrid = [
-	{
-		field: 'checkbox',
-		width: '50',
-		type: 'checkbox',
-		allowFiltering: false,
-	},
-	{
-		field: 'date',
-		headerText: 'Date',
-		width: '150',
-		editType: 'dropdownedit',
-		textAlign: 'Center',
-		allowFiltering: true,
-	},
-	{
-		field: 'day',
-		headerText: 'Day',
-		width: '150',
-		editType: 'dropdownedit',
-		textAlign: 'Center',
-		allowFiltering: false,
 
-	},
-	{
-		field: 'type',
-		headerText: 'Type',
-		width: '150',
-		editType: 'dropdownedit',
-		textAlign: 'Center',
-	},
-	{
-		field: 'enterTime',
-		headerText: 'Enter Type',
-		width: '150',
-		editType: 'dropdownedit',
-		textAlign: 'Center',
-		allowFiltering: false,
-
-	},
-	{
-		field: 'exitTime',
-		headerText: 'Exit Time',
-		width: '150',
-		editType: 'dropdownedit',
-		textAlign: 'Center',
-		allowFiltering: false,
-
-	},
-	{
-		field: 'length',
-		headerText: 'Length',
-		width: '150',
-		editType: 'dropdownedit',
-		textAlign: 'Center',
-		allowFiltering: false,
-
-	},
-	{
-		field: 'totalAmount',
-		headerText: 'Total Amount',
-		format: 'C2',
-		textAlign: 'Center',
-		editType: 'numericedit',
-		currencyCode: 'ILS',
-		width: '150',
-		allowFiltering: false,
-
-	},
-];
 
 const gridEmployeeProfile = (props) => (
 	<div className='flex items-center gap-2'>
