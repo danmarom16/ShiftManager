@@ -101,7 +101,7 @@ export const ContextProvider = ({ children }) => {
   const [enterTime, setEnterTime] = useState();
   const [exitTime, setExitTime] = useState();
   const [filterMonth, setFilterMonth] = useState();
-
+  const [calendarData, setCalendarData] = useState();
   /* 
     	THEME RELATED FUNCTIONS
    */
@@ -166,6 +166,14 @@ export const ContextProvider = ({ children }) => {
     }
   };
 
+  const getCalendarData = async () => {
+    try {
+      const data = await shiftApiService.getCalendarData();
+      setCalendarData(data);
+    } catch (error) {
+      console.error("Error fetching shift data:", error);
+    }
+  };
   // GET DASHBOARD CHART DATA
   const getDashboardChartData = async () => {
     try {
@@ -337,6 +345,9 @@ export const ContextProvider = ({ children }) => {
         setFilterMonth: setFilterMonth,
         filteredShiftsData: filteredShiftsData,
         setFilteredShiftsData: setFilteredShiftsData,
+        getCalendarData: getCalendarData,
+        calendarData: calendarData,
+        setCalendarData: setCalendarData,
       }}
     >
       {children}

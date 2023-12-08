@@ -2,6 +2,7 @@ import Shift from '../models/Shift.js';
 import mongoose from 'mongoose';
 import { dataService } from '../services/dataService.js';
 
+
 export const getDashboardCardsData = async (req, res) => {
 	try {
 		const shiftsData = await Shift.find(); // Gets data from mongo
