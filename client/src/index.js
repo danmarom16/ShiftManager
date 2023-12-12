@@ -7,18 +7,23 @@ import { ThemeContextProvider } from "./contexts/ThemeContextProvider";
 import { DashboardContextProvider } from "./contexts/DashboardContextProvider";
 import { ShiftsTableContextProvider } from "./contexts/ShiftsTableContextProvider";
 import { CalendarContextProvider } from "./contexts/CalendarContextProvider";
-
+import { UserContextProvider } from "./contexts/UserContextProvider";
+import { BrowserRouter } from "react-router-dom";
 ReactDOM.render(
-  <ThemeContextProvider>
-    <ShiftsTableContextProvider>
-      <DashboardContextProvider>
-        <CalendarContextProvider>
-          <ContextProvider>
-            <App />
-          </ContextProvider>
-        </CalendarContextProvider>
-      </DashboardContextProvider>
-    </ShiftsTableContextProvider>
-  </ThemeContextProvider>,
+  <BrowserRouter>
+    <UserContextProvider>
+      <ThemeContextProvider>
+        <ShiftsTableContextProvider>
+          <DashboardContextProvider>
+            <CalendarContextProvider>
+              <ContextProvider>
+                <App />
+              </ContextProvider>
+            </CalendarContextProvider>
+          </DashboardContextProvider>
+        </ShiftsTableContextProvider>
+      </ThemeContextProvider>
+    </UserContextProvider>
+  </BrowserRouter>,
   document.getElementById("root")
 );

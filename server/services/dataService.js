@@ -2,6 +2,10 @@ import { shiftService } from "./shiftsService.js";
 import { salaryService } from "./salaryService.js";
 import { outsourceApiService } from "./outsourceApiService.js";
 
+
+
+
+
 const formatCalendarData = (shiftsData) => {
   const calendarData = [];
   shiftsData.forEach((shift) => {

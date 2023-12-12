@@ -5,6 +5,7 @@ module.exports = {
     fontFamily: {
       display: ["Open Sans", "sans-serif"],
       body: ["Open Sans", "sans-serif"],
+      inter: ["Inter", "sans-serif"],
     },
     extend: {
       fontSize: {
@@ -43,5 +44,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('@fortawesome/fontawesome-free'),],
+  plugins: [require("@fortawesome/fontawesome-free")],
 };

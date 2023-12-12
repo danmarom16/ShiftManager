@@ -4,17 +4,6 @@ import { formaterService } from "../formaterService.js";
 /* URL CONSTS */
 const baseURL = "http://localhost:5000";
 const apiShiftRoute = "/api/shift";
-const calendarRoute = "/api/calendar";
-
-const getCalendarData = async () => {
-  const url = baseURL + calendarRoute + "/calendarData";
-  return axios
-    .get(url)
-    .then((res) => res.data)
-    .catch((error) => {
-      throw error;
-    });
-};
 
 // GET - gets dashboard cards data
 const getDashboardCardsData = async () => {
@@ -127,5 +116,4 @@ export const shiftApiService = {
   insertFromCsv,
   getDashboardData,
   getDashboardCardsData,
-  getCalendarData,
 };

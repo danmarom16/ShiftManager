@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button = ({ bgColor, color, size, text, borderRadius, onClick, type }) => {
+const Button = ({ bgColor, color, size, text, borderRadius, onClick, type, icon }) => {
   return (
     <div>
       <button
@@ -13,7 +13,7 @@ const Button = ({ bgColor, color, size, text, borderRadius, onClick, type }) => 
           borderRadius: borderRadius,
         }}
       >
-        {text}
+        {icon}{text}
       </button>
     </div>
   );

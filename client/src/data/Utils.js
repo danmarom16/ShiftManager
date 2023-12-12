@@ -56,3 +56,15 @@ export const currentMonthRevenueInitialData = {
   revenue: 0,
   percentage: 0,
 };
+
+
+export const taskInitialData = {
+  Id:1,
+  Status: "Open",
+  Summary: "",
+  Priority: "Low",
+  RankId: 1,
+  Color: "#02897B",
+  ClassName: "e-story, e-low, e-nancy-davloio",
+  Date: new Date(),
+}

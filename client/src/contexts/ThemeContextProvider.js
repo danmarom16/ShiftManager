@@ -1,21 +1,19 @@
-
 import React, { createContext, useContext, useState } from "react";
 
 const StateContext = createContext();
 const initialState = {
-    userProfile: false,
-    notification: false,
-  };
+  userProfile: false,
+  notification: false,
+};
 
-  export const ThemeContextProvider = ({children}) => {
-
-
+export const ThemeContextProvider = ({ children }) => {
   const [activeMenu, setActiveMenu] = useState(true);
   const [isClicked, setIsClicked] = useState(initialState);
   const [screenSize, setScreenSize] = useState(undefined);
   const [currentColor, setCurrentColor] = useState("#03C9D7");
   const [currentMode, setCurrentMode] = useState("Light");
-  const [themeSettings, setThemeSettings] = useState(false);  
+  const [themeSettings, setThemeSettings] = useState(false);
+  const [isUserProfileClicked, setIsUserProfileClicked] = useState(false);
 
   const setMode = (e) => {
     setCurrentMode(e.target.value);
@@ -31,10 +29,11 @@ const initialState = {
   };
 
   const handleClick = (clicked) =>
-  setIsClicked({ ...initialState, [clicked]: true });
+    setIsClicked({ ...initialState, [clicked]: !initialState[clicked] });
 
-  return(
-    <StateContext.Provider value={{
+  return (
+    <StateContext.Provider
+      value={{
         activeMenu,
         setActiveMenu,
         isClicked,
@@ -49,11 +48,13 @@ const initialState = {
         setMode,
         setColor,
         handleClick,
-    }} >
-
-        {children}
+        isUserProfileClicked,
+        setIsUserProfileClicked,
+      }}
+    >
+      {children}
     </StateContext.Provider>
   );
-}
+};
 
-  export const useThemeContext = () => useContext(StateContext);
+export const useThemeContext = () => useContext(StateContext);

@@ -5,6 +5,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 import { Notifications, UserProfile } from ".";
 import { useStateContext } from "../contexts/ContextProvider";
+import { FaUser } from "react-icons/fa";
 
 const NavButton = ({ title, costumFunc, icon, color, dotColor }) => (
   <TooltipComponent content={title} position="ButtomCenter">
@@ -33,6 +34,8 @@ const Navbar = () => {
     screenSize,
     setScreenSize,
     currentColor,
+    isUserProfileClicked,
+    setIsUserProfileClicked,
   } = useStateContext();
 
   useEffect(() => {
@@ -59,29 +62,29 @@ const Navbar = () => {
         color={currentColor}
         icon={<AiOutlineMenu />}
       />
-      <div className="flex">
-        <NavButton
-          title="notifications"
-          costumFunc={() => handleClick("notification")}
-          color={currentColor}
-          icon={<RiNotification3Line />}
-        />
-        <TooltipComponent content="Profile" position="BottomCenter">
+      <div className="flex ">
+        <div className="hover:bg-light-gray flex ">
+          <TooltipComponent content="Profile" position="BottomCenter">
+            <NavButton
+              title="user"
+              costumFunc={() => setIsUserProfileClicked((prevVal) => !prevVal)}
+              color={currentColor}
+              icon={<FaUser />}
+            />
+          </TooltipComponent>
           <div
-            className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
-            onClick={() => handleClick("userProfile")}
+            className="flex items-center gap-2 cursor-pointer p-1  rounded-lg"
+            onClick={() => setIsUserProfileClicked((prevVal) => !prevVal)}
           >
             <p>
               <span className="text-gray-400 text-14">Hi, </span>{" "}
-              <span className="text-gray-400 font-bold ml-1 text-14">
-                Michal{" "}
-              </span>
+              <span className="text-gray-400 font-bold ml-1 text-14">User</span>
             </p>
             <MdKeyboardArrowDown className="text-gray-400 text-14" />
           </div>
-        </TooltipComponent>
-        {isClicked.notification && <Notifications />}
-        {isClicked.userProfile && <UserProfile />}
+        </div>
+
+        {isUserProfileClicked && <UserProfile />}
       </div>
     </div>
   );
