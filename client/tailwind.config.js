@@ -2,9 +2,19 @@ module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
   darkMode: "class",
   theme: {
+    screens: {
+      tablet: "640px",
+      // => @media (min-width: 640px) { ... }
+
+      laptop: "1024px",
+      // => @media (min-width: 1024px) { ... }
+
+      desktop: "2048px",
+      // => @media (min-width: 1280px) { ... }
+    },
     fontFamily: {
-      display: ["Open Sans", "sans-serif"],
-      body: ["Open Sans", "sans-serif"],
+      display: ["Google Sans", "sans-serif"],
+      body: ["Google Sans", "sans-serif"],
       inter: ["Inter", "sans-serif"],
     },
     extend: {
