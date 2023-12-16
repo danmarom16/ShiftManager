@@ -6,6 +6,7 @@ import cors from "cors";
 import Shift from "./models/Shift.js";
 import calendarRoutes from "./routes/calenderRoutes.js";
 import kanbanRoutes from "./routes/kanbanRoutes.js";
+import userRoutes from "./routes/userRoutes.js";
 
 /* CONFIGURATION */
 dotenv.config(); // to set up environment variables
@@ -18,6 +19,7 @@ app.use(cors());
 app.use("/api/shift", shiftDataRoutes);
 app.use("/api/calendar", calendarRoutes);
 app.use("/api/kanban", kanbanRoutes);
+app.use("/api/user", userRoutes);
 
 /** MONGOOSE SETUP */
 //const PORT = process.env.PORT;
