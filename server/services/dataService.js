@@ -2,10 +2,6 @@ import { shiftService } from "./shiftsService.js";
 import { salaryService } from "./salaryService.js";
 import { outsourceApiService } from "./outsourceApiService.js";
 
-
-
-
-
 const formatCalendarData = (shiftsData) => {
   const calendarData = [];
   shiftsData.forEach((shift) => {
@@ -211,7 +207,6 @@ const getMonthlySalary = async (shiftsData) => {
 
 // ADD TOTAL AMOUNT CALCULATION
 const formateCsvData = async (dataObject) => {
-  console.log(dataObject);
   const shifts = [];
   const rawShifts = dataObject.data.shifts;
 

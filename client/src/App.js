@@ -16,11 +16,12 @@ import {
   Editor,
   ShiftsTable,
   InsertShifts,
+  Register,
+  Login,
 } from "./pages";
 
 import "./App.css";
 import { useStateContext } from "./contexts/ContextProvider";
-import Register from "./pages/Register";
 
 const App = () => {
   const {
@@ -30,20 +31,26 @@ const App = () => {
     currentColor,
     currentMode,
     isUserLogged,
+    isRegisterSuccess,
     //getAllShiftData,
   } = useStateContext();
 
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isUserLogged) {
+    if (!isRegisterSuccess) {
       navigate("/register");
     } else {
-      navigate("/");
+      if (!isUserLogged) {
+        navigate("/login");
+      } else {
+        navigate("/dashboard");
+      }
     }
-  }, [isUserLogged, navigate]);
+  }, [isUserLogged, isRegisterSuccess]);
+
   return (
-    <div className= {currentMode === "Dark" ? "dark font-body" : "font-body"} >
+    <div className={currentMode === "Dark" ? "dark font-body" : "font-body"}>
       {isUserLogged ? (
         <div className="flex relative dark:bg-main-dark-bg">
           <div className="fixed right-4 bottom-4" style={{ zIndex: "1000" }}>
@@ -59,7 +66,7 @@ const App = () => {
             </TooltipComponent>
           </div>
           {activeMenu ? (
-            <div className="w-72 fixed dark:bg-secondary-dark-bg bg-white">
+            <div className="w-72 dark:bg-secondary-dark-bg bg-white">
               <Sidebar />
             </div>
           ) : (
@@ -71,7 +78,7 @@ const App = () => {
             className={`dark:bg-main-dark-bg bg-main-bg min-h-screen w-full 
         ${activeMenu ? "md:ml-72" : "flex-2"}`}
           >
-            <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
+            <div className="md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
               <Navbar />
             </div>
             <div>
@@ -95,6 +102,7 @@ const App = () => {
       ) : (
         <Routes>
           <Route path="/register" element={<Register />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       )}
     </div>

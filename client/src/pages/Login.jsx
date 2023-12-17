@@ -2,17 +2,53 @@ import React from "react";
 import { useStateContext } from "../contexts/ContextProvider";
 import Button from "../components/Button";
 import { FaRegUser } from "react-icons/fa";
-import { MdOutlineMarkunreadMailbox } from "react-icons/md";
 import { CgPassword } from "react-icons/cg";
 import { FaLongArrowAltRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
+import Input from "../components/Input";
+import LoginFailDialog from "../pages/costumDialogs/userDialogs/LoginFailDialog";
+import LoginSuccessDialog from "../pages/costumDialogs/userDialogs/LoginSuccessDialog";
+import { MdOutlineMarkunreadMailbox } from "react-icons/md";
 
 function Login() {
-  const { isUserLogged, setIsUserLogged, currentColor } = useStateContext();
+  const {
+    isUserLogged,
+    setIsUserLogged,
+    currentColor,
+    isLoginSuccessDialogOpen,
+    setIsLoginSuccessDialogOpen,
+    loginData,
+    setLoginData,
+    loginUser,
+    isLoginFailDialogOpen,
+    setIsLoginFailDialogOpen,
+  } = useStateContext();
 
   const backgroundImageStyle = {
     backgroundImage: `url(${process.env.PUBLIC_URL}/svg/register_background.svg)`,
     backgroundSize: "cover",
     backgroundPosition: "center",
+  };
+
+  const navigate = useNavigate();
+
+  const onChange = (e, key) => {
+    const value = e.target.value;
+    setLoginData({ ...loginData, [key]: value });
+  };
+
+  const login = async (event) => {
+    event.preventDefault();
+    console.log(loginData);
+    const resStatus = await loginUser();
+    if (resStatus === 200) {
+      console.log("Login Succeed");
+      setIsUserLogged(true);
+      setIsLoginSuccessDialogOpen(true);
+    } else if (resStatus === 400) {
+      console.log("Login Failed");
+      setIsLoginFailDialogOpen(true);
+    }
   };
 
   return (
@@ -32,24 +68,29 @@ function Login() {
                   Please sign in to use the Shift Manager
                 </p>
               </div>
-              <div className="flex gap-2 items-center mb-5 font-semibold border-b-2 hover:border-blue-400">
-                <div className=" text-xl text-gray-400">{<FaRegUser />}</div>
-                <input
-                  className="p-2 rounded bg-none focus:outline-none "
-                  placeholder="Username"
-                  type="text"
-                ></input>
-              </div>
-              <div className="flex gap-2 items-center mb-5 font-semibold border-b-2 hover:border-blue-400">
-                <div className="text-gray-400 text-xl">{<CgPassword />}</div>
-                <input
-                  className="p-2 rounded bg-none  focus:outline-none"
-                  placeholder="Password"
-                  type="password"
-                ></input>
-              </div>
+              <Input
+                inputType="email"
+                inputText="Email"
+                icon={<MdOutlineMarkunreadMailbox />}
+                onChange={onChange}
+                type="text"
+                errorMessage=""
+                handleBlur={() => {}}
+              />
+              <Input
+                inputType="password"
+                inputText="Password"
+                errorMessage=""
+                icon={<CgPassword />}
+                onChange={onChange}
+                type="password"
+                handleBlur={() => {}}
+              />
               <div className="flex w-fit py-3 px-10 rounded-full gap-2 items-center mb-5 font-semibold bg-cyan-800 text-white ">
-                <button className="flex flex-2 items-center gap-5">
+                <button
+                  className="flex flex-2 items-center gap-5"
+                  onClick={login}
+                >
                   <div>Sign In</div>
                   <div className="font-extrabold rounded-full bg-white  p-1.5">
                     <FaLongArrowAltRight color="#155e75" />
@@ -66,7 +107,6 @@ function Login() {
                 />
               </div>
               <h2 className="text-xl font-bold desktop:text-2xl">
-                {" "}
                 Dont have an account yet ?
               </h2>
               <p className="text-center text-gray-400">
@@ -74,7 +114,10 @@ function Login() {
                 first
               </p>
               <div className="flex w-fit py-3 px-10 rounded-full gap-2 items-center mb-5 font-semibold bg-white border-2 border-cyan-800 text-white ">
-                <button className="flex flex-2 items-center gap-5 text-cyan-800">
+                <button
+                  onClick={login}
+                  className="flex flex-2 items-center gap-5 text-cyan-800"
+                >
                   <div>Sign Up</div>
                 </button>
               </div>
@@ -82,6 +125,8 @@ function Login() {
           </div>
         </div>
       </div>
+      {isLoginSuccessDialogOpen && <LoginSuccessDialog />}
+      {isLoginFailDialogOpen && <LoginFailDialog />}
     </div>
   );
 }

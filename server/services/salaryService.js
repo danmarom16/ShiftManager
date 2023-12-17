@@ -31,6 +31,7 @@ const roundAmount = (amount) => {
 
 // TODO - EXTRA HOURS
 const calShiftRevenue = async (shift) => {
+	console.log(shift)
 	if (shift.day === 'Friday' && shift.type === 'Evening') {
 		const shabbatTimes = await outsourceApiService.getShabbatTimes(shift.date);
 		const regularHours = shiftService.getShiftLength(
@@ -59,7 +60,7 @@ const calShiftRevenue = async (shift) => {
 			regularHours * HOURLYWAGE + shabbatHours * (HOURLYWAGE * 1.5)
 		);
 	} else if (shift.day === 'Saturday' && shift.type === 'Morning') {
-		return roundAmount(length * HOURLYWAGE * 1.5);
+		return roundAmount(shift.length * HOURLYWAGE * 1.5);
 	} else if (shift.day === 'Friday' && shift.type === 'Night') {
 		return roundAmount(shift.length * 1.5 * HOURLYWAGE);
 	} else if (shift.type === 'Night') {

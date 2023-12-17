@@ -18,13 +18,13 @@ const EarningsStatistics = () => {
   }, [dashboardData]);
 
   return (
-    <div className="flex flex-col gap-5 max-w-4xl items-center justify-center bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 rounded-2xl md:mx-auto">
-      <div className="flex flex-wrap items-center justify-center w-full">
+    <div className="flex flex-col w-fit p-10 justify-center items-center bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 rounded-2xl  md:mx-auto">
+      <div className="flex flex-wrap items-center justify-center w-fit gap-10 ">
         <div className="flex-1">
-          <LastMonthDiv/>
+          <LastMonthDiv />
         </div>
         <div className="flex-1 ">
-          <Stacked/>
+          <Stacked />
         </div>
       </div>
       <div className="mt-10">

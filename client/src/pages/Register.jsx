@@ -7,6 +7,9 @@ import { CgPassword } from "react-icons/cg";
 import { FaLongArrowAltRight } from "react-icons/fa";
 import { registerValidator } from "../services/userValidators/registerValidator.js";
 import Input from "../components/Input.jsx";
+import UserAddedDialog from "../pages/costumDialogs/userDialogs/UserAddedDialog";
+import UserInUseDialog from "./costumDialogs/userDialogs/UserInUseDialog.jsx";
+import { useNavigate } from "react-router-dom";
 
 function Register() {
   const {
@@ -19,7 +22,13 @@ function Register() {
     setRegisterErrors,
     registerErrorsTemplate,
     registerUser,
+    isUserAddedDialogOpen,
+    setIsUserAddedDialogOpen,
+    isUserInUseDialogOpen,
+    setIsUserInUseDialogOpen,
   } = useStateContext();
+
+  const navigate = useNavigate();
 
   const backgroundImageStyle = {
     backgroundImage: `url(${process.env.PUBLIC_URL}/svg/register_background.svg)`,
@@ -46,16 +55,18 @@ function Register() {
     }
   };
 
-  const signUp = (event) => {
+  const signUp = async (event) => {
     event.preventDefault();
     if (registerValidator.isValidData(registerData)) {
-      const res = registerUser(registerData);
-      if (res) {
-        console.log("User Created Successfully");
-        // TODO - pop modal for Login.
+      const resStatus = await registerUser();
+      if (resStatus === 201) {
+        console.log("User created successfully");
+        setIsUserAddedDialogOpen(true);
+      } else if (resStatus === 400) {
+        setIsUserInUseDialogOpen(true);
+        console.log("The email u used already in use");
       } else {
-        console.log("User creation failed");
-        // TODO - pop Fail modal.
+        // TODO - POP Internal server error modal
       }
     } else {
       // TODO: Pop MODAL for one of the details you've entered are wrong
@@ -90,7 +101,7 @@ function Register() {
                 inputType="username"
                 inputText="Username"
                 errorMessage={registerErrors.username}
-                icon={<MdOutlineMarkunreadMailbox />}
+                icon={<FaRegUser />}
                 onChange={onChange}
                 handleBlur={handleBlur}
                 type="text"
@@ -99,7 +110,7 @@ function Register() {
                 inputType="email"
                 inputText="Email"
                 errorMessage={registerErrors.email}
-                icon={<FaRegUser />}
+                icon={<MdOutlineMarkunreadMailbox />}
                 onChange={onChange}
                 handleBlur={handleBlur}
                 type="email"
@@ -150,7 +161,10 @@ function Register() {
                 below
               </p>
               <div className="flex w-fit py-3 px-10 rounded-full gap-2 items-center mb-5 font-semibold bg-white border-2 border-cyan-800 text-white ">
-                <button className="flex flex-2 items-center gap-5 text-cyan-800">
+                <button
+                  className="flex flex-2 items-center gap-5 text-cyan-800"
+                  onClick={() => navigate("/login")}
+                >
                   <div>Sign In</div>
                 </button>
               </div>
@@ -158,6 +172,8 @@ function Register() {
           </div>
         </div>
       </div>
+      {isUserAddedDialogOpen && <UserAddedDialog />}
+      {isUserInUseDialogOpen && <UserInUseDialog />}
     </div>
   );
 }

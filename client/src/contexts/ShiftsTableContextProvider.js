@@ -2,7 +2,6 @@ import React, { createContext, useContext, useState } from "react";
 import { shiftApiService } from "../services/api_services/ShiftApiService";
 import { csvUploadService } from "../services/file_upload_service/CsvUploadService";
 
-
 const StateContext = createContext();
 export const ShiftsTableContextProvider = ({ children }) => {
   // FOR DIALOG CONTROL(OPEN/CLOSE)

@@ -44,14 +44,11 @@ const formateDate = (dateString, delimeter) => {
     const datePartsArray = dateString.split(delimeter);
     const formatedDateString = datePartsArray.join("-") + "T00:00:00Z";
     const date = new Date(formatedDateString);
-    console.log(date);
     return date;
   } else {
     const datePartsArray = dateString.split(delimeter).reverse();
     const formatedDateString = datePartsArray.join("-") + "T00:00:00Z";
     const date = new Date(formatedDateString);
-    console.log(date);
-
     return date;
   }
 };

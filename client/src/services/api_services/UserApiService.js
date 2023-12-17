@@ -9,10 +9,23 @@ const register = async (userData) => {
     const res = await axios.post(url, userData);
     return res.status;
   } catch (error) {
-    throw error;
+    console.log(error);
+    return error.response.status;
+  }
+};
+
+const login = async (loginData) => {
+  const url = baseURL + apiUserRoute + "/login";
+  try {
+    const res = await axios.post(url, loginData);
+    return res.status;
+  } catch (error) {
+    console.log(error);
+    return error.response.status;
   }
 };
 
 export const UserApiService = {
   register,
+  login,
 };

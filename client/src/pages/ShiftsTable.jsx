@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import { Header } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
-import AddDialog from "./costumDialogs/AddDialog";
-import EditDialog from "./costumDialogs/EditDialog";
-import DeleteDialog from "./costumDialogs/DeleteDialog";
-import UploadCsvDialog from "./costumDialogs/UploadCsvDialog";
-import TypeDialog from "./costumDialogs/TypeDialog";
-import FilteringDialog from "./costumDialogs/FilteringDialog";
+import AddDialog from "./costumDialogs/shiftDialogs/AddDialog";
+import EditDialog from "./costumDialogs/shiftDialogs/EditDialog";
+import DeleteDialog from "./costumDialogs/shiftDialogs/DeleteDialog";
+import UploadCsvDialog from "./costumDialogs/shiftDialogs/UploadCsvDialog";
+import TypeDialog from "./costumDialogs/shiftDialogs/TypeDialog";
+import FilteringDialog from "./costumDialogs/shiftDialogs/FilteringDialog";
 import ShiftGrid from "../components/ShiftGrid";
 
 const ShiftsTable = () => {

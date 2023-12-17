@@ -2,7 +2,8 @@ import React, { useEffect } from 'react';
 import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 import { TimePickerComponent } from '@syncfusion/ej2-react-calendars';
-import { useStateContext } from '../../contexts/ContextProvider';
+import { useStateContext } from '../../../contexts/ContextProvider';
+
 import { useState } from 'react';
 
 const AddDialog = () => {

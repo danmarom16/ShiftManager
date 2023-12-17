@@ -9,6 +9,7 @@ import { useUserContext } from "./UserContextProvider.js";
 const StateContext = createContext();
 
 export const ContextProvider = ({ children }) => {
+  
   // IMPORT CONTEXTS
   const userContextValues = useUserContext();
   const themeContextValues = useThemeContext();

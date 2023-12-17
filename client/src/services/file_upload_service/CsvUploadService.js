@@ -27,8 +27,6 @@ const load = (args) => {
 	});
 };
 const format = (rawStringData) => {
-	console.log('In format');
-	console.log(rawStringData);
 	const lines = rawStringData.split('\r\n');
 	if (lines.length < 2) {
 		console.error('Invalid input data');
@@ -43,7 +41,6 @@ const format = (rawStringData) => {
 		});
 		return shift;
 	});
-
 	return { columns, shifts };
 };
 const path = {

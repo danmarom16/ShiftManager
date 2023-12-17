@@ -11,6 +11,13 @@ export const UserContextProvider = ({ children }) => {
     confirmPassword: "Passwords do not match",
   };
 
+  const [isUserAddedDialogOpen, setIsUserAddedDialogOpen] = useState(false);
+  const [isUserInUseDialogOpen, setIsUserInUseDialogOpen] = useState(false);
+  const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
+
+  const [isLoginSuccessDialogOpen, setIsLoginSuccessDialogOpen] =
+    useState(false);
+  const [isLoginFailDialogOpen, setIsLoginFailDialogOpen] = useState(false);
   const [isUserLogged, setIsUserLogged] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -27,6 +34,11 @@ export const UserContextProvider = ({ children }) => {
     confirmPassword: "",
   });
 
+  const [loginData, setLoginData] = useState({
+    email: "",
+    password: "",
+  });
+
   const togglePasswordVisibility = () => {
     console.log("Clicked on toggle password");
     setShowPassword(!showPassword);
@@ -37,9 +49,12 @@ export const UserContextProvider = ({ children }) => {
     setShowConfirmPassword(!showConfirmPassword);
   };
 
-  const registerUser = () => {
-    const res = UserApiService.register(registerData);
-    return res;
+  const registerUser = async () => {
+    return await UserApiService.register(registerData);
+  };
+
+  const loginUser = async () => {
+    return await UserApiService.login(loginData);
   };
 
   return (
@@ -57,6 +72,19 @@ export const UserContextProvider = ({ children }) => {
         showConfirmPassword,
         toggleConfirmPasswordVisibility,
         registerUser,
+        isUserAddedDialogOpen,
+        setIsUserAddedDialogOpen,
+        isUserInUseDialogOpen,
+        setIsUserInUseDialogOpen,
+        isRegisterSuccess,
+        setIsRegisterSuccess,
+        isLoginSuccessDialogOpen,
+        setIsLoginSuccessDialogOpen,
+        loginData,
+        setLoginData,
+        loginUser,
+        isLoginFailDialogOpen,
+        setIsLoginFailDialogOpen,
       }}
     >
       {children}

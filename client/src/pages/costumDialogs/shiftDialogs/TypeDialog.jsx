@@ -1,5 +1,5 @@
 import React from 'react';
-import { useStateContext } from '../../contexts/ContextProvider';
+import { useStateContext } from '../../../contexts/ContextProvider';
 import { MdNightlight } from 'react-icons/md';
 import { GoSun } from 'react-icons/go';
 import { TiWeatherPartlySunny } from 'react-icons/ti';

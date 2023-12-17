@@ -1,9 +1,9 @@
 import React from 'react';
 import { DatePickerComponent } from '@syncfusion/ej2-react-calendars';
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
-import { useStateContext } from '../../contexts/ContextProvider';
+import { useStateContext } from '../../../contexts/ContextProvider';
 import { UploaderComponent } from '@syncfusion/ej2-react-inputs';
-import { csvUploadService } from '../../services/file_upload_service/CsvUploadService';
+import { csvUploadService } from '../../../services/file_upload_service/CsvUploadService';
 
 const UploadCsvDialog = () => {
 	const {

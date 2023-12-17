@@ -6,7 +6,7 @@ import {
 } from "@syncfusion/ej2-react-kanban";
 import { Header } from "../components";
 import { useStateContext } from "../contexts/ContextProvider";
-import { KanbanAddDialog } from "./costumDialogs/KanbanAddDialog";
+import { KanbanAddDialog } from "./costumDialogs/shiftDialogs/KanbanAddDialog";
 
 const kanbanGrid = [
   { headerText: "To Do", keyField: "Open", allowToggle: true },
