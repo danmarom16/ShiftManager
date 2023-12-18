@@ -21,14 +21,11 @@ export const LoginFailDialog = () => {
             Username or password are wrong, please try again.
           </p>
           <div
-            className="flex mt-10 w-fit py-3 px-10 rounded-full gap-2 items-center mb-5 font-semibold bg-cyan-800 text-white"
+            className="flex mt-10 w-fit py-3 px-10 rounded-full gap-2 items-center mb-5 border-2 border-cyan-800 font-semibold text-cyan-800 bg-white"
             onClick={closeModal}
           >
             <button className="flex flex-2 items-center gap-5">
               <div>Close</div>
-              <div className="font-extrabold rounded-full bg-white  p-1.5">
-                <FaLongArrowAltRight color="#155e75" />
-              </div>
             </button>
           </div>
         </div>

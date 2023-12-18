@@ -39,16 +39,7 @@ function Login() {
 
   const login = async (event) => {
     event.preventDefault();
-    console.log(loginData);
-    const resStatus = await loginUser();
-    if (resStatus === 200) {
-      console.log("Login Succeed");
-      setIsUserLogged(true);
-      setIsLoginSuccessDialogOpen(true);
-    } else if (resStatus === 400) {
-      console.log("Login Failed");
-      setIsLoginFailDialogOpen(true);
-    }
+    await loginUser();
   };
 
   return (
@@ -115,7 +106,7 @@ function Login() {
               </p>
               <div className="flex w-fit py-3 px-10 rounded-full gap-2 items-center mb-5 font-semibold bg-white border-2 border-cyan-800 text-white ">
                 <button
-                  onClick={login}
+                  onClick={() => navigate("/register")}
                   className="flex flex-2 items-center gap-5 text-cyan-800"
                 >
                   <div>Sign Up</div>

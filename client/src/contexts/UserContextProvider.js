@@ -15,9 +15,11 @@ export const UserContextProvider = ({ children }) => {
   const [isUserInUseDialogOpen, setIsUserInUseDialogOpen] = useState(false);
   const [isRegisterSuccess, setIsRegisterSuccess] = useState(false);
 
+  const [loggedUserID, setLoggedUserId] = useState("");
   const [isLoginSuccessDialogOpen, setIsLoginSuccessDialogOpen] =
     useState(false);
   const [isLoginFailDialogOpen, setIsLoginFailDialogOpen] = useState(false);
+
   const [isUserLogged, setIsUserLogged] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -54,7 +56,22 @@ export const UserContextProvider = ({ children }) => {
   };
 
   const loginUser = async () => {
-    return await UserApiService.login(loginData);
+    try {
+      const res = await UserApiService.login(loginData);
+      console.log(res);
+      if (res.status === 200) {
+        console.log("Login Succeed");
+        setIsLoginSuccessDialogOpen(true);
+        setLoggedUserId(res.data.id);
+      }
+    } catch (error) {
+      if (error.response.status === 400) {
+        console.log("Login Failed");
+        setIsLoginFailDialogOpen(true);
+      } else if (error.response.status === 500) {
+        console.log("Internal Server Error");
+      }
+    }
   };
 
   return (
@@ -85,6 +102,8 @@ export const UserContextProvider = ({ children }) => {
         loginUser,
         isLoginFailDialogOpen,
         setIsLoginFailDialogOpen,
+        loggedUserID,
+        setLoggedUserId,
       }}
     >
       {children}

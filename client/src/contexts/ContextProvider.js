@@ -14,7 +14,7 @@ export const ContextProvider = ({ children }) => {
   const userContextValues = useUserContext();
   const themeContextValues = useThemeContext();
   const dashboardContextValues = useDashboardContext();
-  const shiftsTableContextValues = useShiftsTableContext();
+  const shiftsTableContextValues = useShiftsTableContext(userContextValues.loggedUserID);
   const calendarContextValues = useCalendarContext();
   const kanbanContextValues = useKanbanContext();
   // GLOBAL DEFINITIONS

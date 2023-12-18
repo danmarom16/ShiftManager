@@ -1,13 +1,13 @@
 import React from "react";
 import { useStateContext } from "../../../contexts/ContextProvider";
 import { FaLongArrowAltRight } from "react-icons/fa";
-
 export const LoginSuccessDialog = () => {
-  const { setIsLoginSuccessDialogOpen } =
-    useStateContext();
+  const { setIsLoginSuccessDialogOpen, setIsUserLogged } = useStateContext();
 
   const closeModal = () => {
     setIsLoginSuccessDialogOpen(false);
+    
+    setIsUserLogged(true);
   };
 
   return (
@@ -19,17 +19,14 @@ export const LoginSuccessDialog = () => {
         <div className=" flex justify-center flex-col items-center gap-3 min-w-fit">
           <h1 className="text-3xl font-bold">Logged in Successfully</h1>
           <p className="text-gray-400">
-            You are being redirected to Shift Manager Dashboard
+            Please click on the button below to use the APP
           </p>
           <div
             className="flex mt-10 w-fit py-3 px-10 rounded-full gap-2 items-center mb-5 font-semibold bg-cyan-800 text-white"
             onClick={closeModal}
           >
             <button className="flex flex-2 items-center gap-5">
-              <div>Close</div>
-              <div className="font-extrabold rounded-full bg-white  p-1.5">
-                <FaLongArrowAltRight color="#155e75" />
-              </div>
+              <div>Click</div>
             </button>
           </div>
         </div>

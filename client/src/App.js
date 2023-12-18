@@ -38,14 +38,15 @@ const App = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!isRegisterSuccess) {
+    console.log("In Use Effect");
+    console.log("IsUserLogged: " + isUserLogged);
+    if (!isUserLogged && !isRegisterSuccess) {
       navigate("/register");
-    } else {
-      if (!isUserLogged) {
-        navigate("/login");
-      } else {
-        navigate("/dashboard");
-      }
+    }
+    if (!isUserLogged && isRegisterSuccess) {
+      navigate("login");
+    } else if (isUserLogged) {
+      navigate("/dashboard");
     }
   }, [isUserLogged, isRegisterSuccess]);
 

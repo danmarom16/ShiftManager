@@ -18,10 +18,10 @@ const login = async (loginData) => {
   const url = baseURL + apiUserRoute + "/login";
   try {
     const res = await axios.post(url, loginData);
-    return res.status;
+    return res;
   } catch (error) {
     console.log(error);
-    return error.response.status;
+    throw error;
   }
 };
 
